@@ -29,59 +29,74 @@ public class AggiuntaGita extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        pnlTitolo = new javax.swing.JPanel();
+        lblTitolo = new javax.swing.JLabel();
+        pnlCentro = new javax.swing.JPanel();
+        lblId = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        lblLuogo = new javax.swing.JLabel();
+        txtLuogo = new javax.swing.JTextField();
+        pnlConferma = new javax.swing.JPanel();
+        btnConferma = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Aggiungi una Gita");
+        setMinimumSize(new java.awt.Dimension(500, 350));
+
+        pnlTitolo.setBackground(new java.awt.Color(153, 255, 255));
+        pnlTitolo.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlTitolo.setLayout(new java.awt.BorderLayout());
+
+        lblTitolo.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        lblTitolo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitolo.setText("Aggiungi una Gita!");
+        pnlTitolo.add(lblTitolo, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(pnlTitolo, java.awt.BorderLayout.PAGE_START);
+
+        pnlCentro.setBackground(new java.awt.Color(153, 255, 255));
+        pnlCentro.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlCentro.setLayout(new java.awt.GridLayout(2, 2, 10, 10));
+
+        lblId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblId.setText("ID:");
+        pnlCentro.add(lblId);
+
+        txtId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pnlCentro.add(txtId);
+
+        lblLuogo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblLuogo.setText("Nome:");
+        pnlCentro.add(lblLuogo);
+
+        txtLuogo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pnlCentro.add(txtLuogo);
+
+        getContentPane().add(pnlCentro, java.awt.BorderLayout.CENTER);
+
+        pnlConferma.setBackground(new java.awt.Color(153, 255, 255));
+        pnlConferma.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlConferma.setLayout(new java.awt.BorderLayout());
+
+        btnConferma.setBackground(new java.awt.Color(102, 255, 102));
+        btnConferma.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnConferma.setText("Conferma");
+        pnlConferma.add(btnConferma, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(pnlConferma, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                AggiuntaGita dialog = new AggiuntaGita(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConferma;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblLuogo;
+    private javax.swing.JLabel lblTitolo;
+    private javax.swing.JPanel pnlCentro;
+    private javax.swing.JPanel pnlConferma;
+    private javax.swing.JPanel pnlTitolo;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtLuogo;
     // End of variables declaration//GEN-END:variables
 }

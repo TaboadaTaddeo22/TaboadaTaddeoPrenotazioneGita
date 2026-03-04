@@ -11,6 +11,7 @@ package taboadataddeoprenotazionegita;
 public class FrameGita extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameGita.class.getName());
+    
 
     /**
      * Creates new form FrameGita
@@ -33,7 +34,7 @@ public class FrameGita extends javax.swing.JFrame {
         pnlMain = new javax.swing.JPanel();
         pnlSinistra = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblVisualizza = new javax.swing.JTable();
         pnlCentro = new javax.swing.JPanel();
         pnlDestra = new javax.swing.JPanel();
         btnRimuoviStudente = new javax.swing.JButton();
@@ -42,6 +43,7 @@ public class FrameGita extends javax.swing.JFrame {
         btnAggiungiStudente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Prenotazione Gita");
 
         pnlTitolo.setBackground(new java.awt.Color(153, 255, 255));
         pnlTitolo.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -63,7 +65,7 @@ public class FrameGita extends javax.swing.JFrame {
         pnlSinistra.setPreferredSize(new java.awt.Dimension(400, 500));
         pnlSinistra.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVisualizza.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -74,7 +76,7 @@ public class FrameGita extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblVisualizza);
 
         pnlSinistra.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -152,7 +154,9 @@ public class FrameGita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAggiungiGitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggiungiGitaActionPerformed
-        // TODO add your handling code here:
+        AggiuntaGita aG = new AggiuntaGita(this, true);
+        aG.setLocationRelativeTo(null);
+        aG.setVisible(true);
     }//GEN-LAST:event_btnAggiungiGitaActionPerformed
 
     private void btnRimuoviGitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviGitaActionPerformed
@@ -160,7 +164,9 @@ public class FrameGita extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRimuoviGitaActionPerformed
 
     private void btnAggiungiStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggiungiStudenteActionPerformed
-        // TODO add your handling code here:
+        AggiuntaStudente aS = new AggiuntaStudente(this, true);
+        aS.setLocationRelativeTo(null);
+        aS.setVisible(true);
     }//GEN-LAST:event_btnAggiungiStudenteActionPerformed
 
     private void btnRimuoviStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviStudenteActionPerformed
@@ -173,12 +179,12 @@ public class FrameGita extends javax.swing.JFrame {
     private javax.swing.JButton btnRimuoviGita;
     private javax.swing.JButton btnRimuoviStudente;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblTitolo;
     private javax.swing.JPanel pnlCentro;
     private javax.swing.JPanel pnlDestra;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JPanel pnlSinistra;
     private javax.swing.JPanel pnlTitolo;
+    private javax.swing.JTable tblVisualizza;
     // End of variables declaration//GEN-END:variables
 }
