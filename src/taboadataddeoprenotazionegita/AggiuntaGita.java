@@ -11,6 +11,8 @@ package taboadataddeoprenotazionegita;
 public class AggiuntaGita extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AggiuntaGita.class.getName());
+    private String luogo;
+    private int id;
 
     /**
      * Creates new form AggiuntaGita
@@ -66,7 +68,7 @@ public class AggiuntaGita extends javax.swing.JDialog {
         pnlCentro.add(txtId);
 
         lblLuogo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblLuogo.setText("Nome:");
+        lblLuogo.setText("Luogo:");
         pnlCentro.add(lblLuogo);
 
         txtLuogo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -81,6 +83,11 @@ public class AggiuntaGita extends javax.swing.JDialog {
         btnConferma.setBackground(new java.awt.Color(102, 255, 102));
         btnConferma.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnConferma.setText("Conferma");
+        btnConferma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfermaActionPerformed(evt);
+            }
+        });
         pnlConferma.add(btnConferma, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pnlConferma, java.awt.BorderLayout.PAGE_END);
@@ -88,6 +95,20 @@ public class AggiuntaGita extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
+        id = Integer.parseInt(txtId.getText());
+        luogo = txtLuogo.getText();
+        dispose();
+    }//GEN-LAST:event_btnConfermaActionPerformed
+
+    public String getLuogo() {
+        return luogo;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConferma;
     private javax.swing.JLabel lblId;

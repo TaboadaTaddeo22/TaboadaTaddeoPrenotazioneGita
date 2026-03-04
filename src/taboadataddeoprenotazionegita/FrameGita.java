@@ -4,6 +4,8 @@
  */
 package taboadataddeoprenotazionegita;
 
+import javax.swing.table.*;
+
 /**
  *
  * @author taboada.taddeo
@@ -11,6 +13,9 @@ package taboadataddeoprenotazionegita;
 public class FrameGita extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameGita.class.getName());
+    private Gita g;
+    private GestioneFile gF;
+    private DefaultTableModel model = new DefaultTableModel(new Object[]{"ID", "Luogo"}, 10);
     
 
     /**
@@ -18,6 +23,36 @@ public class FrameGita extends javax.swing.JFrame {
      */
     public FrameGita() {
         initComponents();
+        g = new Gita();
+        gF = new GestioneFile();
+        impostaTabella();
+    }
+    
+    private void impostaTabella() {
+        tblVisualizza.setSize(pnlSinistra.getWidth(), pnlSinistra.getHeight());
+        tblVisualizza.setModel(model);
+        tblVisualizza.setRowHeight(pnlSinistra.getHeight() / tblVisualizza.getRowCount());
+    }
+    
+    public void aggiornaGite() { 
+        model.setRowCount(0);
+        /*
+        for (Studente s : a.getListaStudenti()) {
+            model.addRow(new Object[]{s.getMatricola(), s.getNome(), s.getCognome()});
+        }
+        */
+        cmbGite.addItem("gita");
+    }
+    
+    public void rimuoviStudente() {
+        int rS = tblVisualizza.getSelectedRow();
+        /*
+        if (rS != -1) {
+            String matricola = (String) model.getValueAt(rS, 0);
+            a.eliminaStudente(matricola);
+            model.removeRow(rS);
+        }
+        */
     }
 
     /**
@@ -36,6 +71,7 @@ public class FrameGita extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVisualizza = new javax.swing.JTable();
         pnlCentro = new javax.swing.JPanel();
+        cmbGite = new javax.swing.JComboBox<>();
         pnlDestra = new javax.swing.JPanel();
         btnRimuoviStudente = new javax.swing.JButton();
         btnAggiungiGita = new javax.swing.JButton();
@@ -84,17 +120,12 @@ public class FrameGita extends javax.swing.JFrame {
 
         pnlCentro.setBackground(new java.awt.Color(153, 255, 255));
         pnlCentro.setPreferredSize(new java.awt.Dimension(300, 532));
+        pnlCentro.setLayout(null);
 
-        javax.swing.GroupLayout pnlCentroLayout = new javax.swing.GroupLayout(pnlCentro);
-        pnlCentro.setLayout(pnlCentroLayout);
-        pnlCentroLayout.setHorizontalGroup(
-            pnlCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
-        );
-        pnlCentroLayout.setVerticalGroup(
-            pnlCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
-        );
+        cmbGite.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        pnlCentro.add(cmbGite);
+        cmbGite.setBounds(40, 30, 240, 70);
+        cmbGite.getAccessibleContext().setAccessibleDescription("");
 
         pnlMain.add(pnlCentro, java.awt.BorderLayout.CENTER);
 
@@ -111,7 +142,7 @@ public class FrameGita extends javax.swing.JFrame {
             }
         });
         pnlDestra.add(btnRimuoviStudente);
-        btnRimuoviStudente.setBounds(30, 430, 240, 70);
+        btnRimuoviStudente.setBounds(40, 430, 230, 70);
 
         btnAggiungiGita.setBackground(new java.awt.Color(102, 255, 102));
         btnAggiungiGita.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -122,7 +153,7 @@ public class FrameGita extends javax.swing.JFrame {
             }
         });
         pnlDestra.add(btnAggiungiGita);
-        btnAggiungiGita.setBounds(30, 30, 240, 70);
+        btnAggiungiGita.setBounds(40, 30, 230, 70);
 
         btnRimuoviGita.setBackground(new java.awt.Color(255, 102, 102));
         btnRimuoviGita.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -133,7 +164,7 @@ public class FrameGita extends javax.swing.JFrame {
             }
         });
         pnlDestra.add(btnRimuoviGita);
-        btnRimuoviGita.setBounds(30, 130, 240, 70);
+        btnRimuoviGita.setBounds(40, 130, 230, 70);
 
         btnAggiungiStudente.setBackground(new java.awt.Color(102, 255, 102));
         btnAggiungiStudente.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -144,7 +175,7 @@ public class FrameGita extends javax.swing.JFrame {
             }
         });
         pnlDestra.add(btnAggiungiStudente);
-        btnAggiungiStudente.setBounds(30, 330, 240, 70);
+        btnAggiungiStudente.setBounds(40, 330, 230, 70);
 
         pnlMain.add(pnlDestra, java.awt.BorderLayout.EAST);
 
@@ -157,6 +188,12 @@ public class FrameGita extends javax.swing.JFrame {
         AggiuntaGita aG = new AggiuntaGita(this, true);
         aG.setLocationRelativeTo(null);
         aG.setVisible(true);
+        
+        int id = aG.getId();
+        String luogo = aG.getLuogo();
+        
+        //a.aggiungiStudente(new Studente(matricola, nome, cognome));
+        aggiornaGite();
     }//GEN-LAST:event_btnAggiungiGitaActionPerformed
 
     private void btnRimuoviGitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviGitaActionPerformed
@@ -167,10 +204,16 @@ public class FrameGita extends javax.swing.JFrame {
         AggiuntaStudente aS = new AggiuntaStudente(this, true);
         aS.setLocationRelativeTo(null);
         aS.setVisible(true);
+        
+        int id = aS.getId();
+        String nome = aS.getNome();
+        String cognome = aS.getCognome();
+        
+        //a.aggiungiStudente(new Studente(matricola, nome, cognome));
     }//GEN-LAST:event_btnAggiungiStudenteActionPerformed
 
     private void btnRimuoviStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviStudenteActionPerformed
-        // TODO add your handling code here:
+        rimuoviStudente();
     }//GEN-LAST:event_btnRimuoviStudenteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -178,6 +221,7 @@ public class FrameGita extends javax.swing.JFrame {
     private javax.swing.JButton btnAggiungiStudente;
     private javax.swing.JButton btnRimuoviGita;
     private javax.swing.JButton btnRimuoviStudente;
+    private javax.swing.JComboBox<String> cmbGite;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitolo;
     private javax.swing.JPanel pnlCentro;

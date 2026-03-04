@@ -11,6 +11,8 @@ package taboadataddeoprenotazionegita;
 public class AggiuntaStudente extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AggiuntaStudente.class.getName());
+    private String nome, cognome;
+    private int id;
 
     /**
      * Creates new form AggiuntaStudente
@@ -40,7 +42,7 @@ public class AggiuntaStudente extends javax.swing.JDialog {
         lblCognome = new javax.swing.JLabel();
         txtCognome = new javax.swing.JTextField();
         pnlConferma = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnConferma = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -90,18 +92,42 @@ public class AggiuntaStudente extends javax.swing.JDialog {
         pnlConferma.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnlConferma.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setBackground(new java.awt.Color(102, 255, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton1.setText("Conferma");
-        pnlConferma.add(jButton1, java.awt.BorderLayout.CENTER);
+        btnConferma.setBackground(new java.awt.Color(102, 255, 102));
+        btnConferma.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnConferma.setText("Conferma");
+        btnConferma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfermaActionPerformed(evt);
+            }
+        });
+        pnlConferma.add(btnConferma, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pnlConferma, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
+        id = Integer.parseInt(txtId.getText());
+        nome = txtNome.getText();
+        cognome = txtCognome.getText();
+        dispose();
+    }//GEN-LAST:event_btnConfermaActionPerformed
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnConferma;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCognome;
     private javax.swing.JLabel lblId;
