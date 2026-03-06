@@ -4,15 +4,19 @@
  */
 package taboadataddeoprenotazionegita;
 
+import java.util.*;
+
 /**
  *
  * @author taboada.taddeo
  */
 public class Studente {
     // Attributi
+    private ArrayList<Integer> idGite;
     private int id;
     private String nome;
     private String cognome;
+    
 
     /**
      * Costruttore di Studente
@@ -21,6 +25,7 @@ public class Studente {
      * @param cognome 
      */
     public Studente(int id, String nome, String cognome) {
+        this.idGite = new ArrayList<>();
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;

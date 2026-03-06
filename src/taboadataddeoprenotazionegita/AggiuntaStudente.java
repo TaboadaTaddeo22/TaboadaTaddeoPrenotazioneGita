@@ -12,7 +12,7 @@ public class AggiuntaStudente extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AggiuntaStudente.class.getName());
     private String nome, cognome;
-    private int id;
+    private int id, idGita;
 
     /**
      * Creates new form AggiuntaStudente
@@ -41,6 +41,8 @@ public class AggiuntaStudente extends javax.swing.JDialog {
         txtNome = new javax.swing.JTextField();
         lblCognome = new javax.swing.JLabel();
         txtCognome = new javax.swing.JTextField();
+        lblIdGita = new javax.swing.JLabel();
+        txtIdGita = new javax.swing.JTextField();
         pnlConferma = new javax.swing.JPanel();
         btnConferma = new javax.swing.JButton();
 
@@ -63,10 +65,10 @@ public class AggiuntaStudente extends javax.swing.JDialog {
 
         pnlCentro.setBackground(new java.awt.Color(153, 255, 255));
         pnlCentro.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlCentro.setLayout(new java.awt.GridLayout(3, 2, 10, 10));
+        pnlCentro.setLayout(new java.awt.GridLayout(4, 2, 10, 10));
 
         lblId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblId.setText("ID Gita:");
+        lblId.setText("ID:");
         pnlCentro.add(lblId);
 
         txtId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -85,6 +87,13 @@ public class AggiuntaStudente extends javax.swing.JDialog {
 
         txtCognome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         pnlCentro.add(txtCognome);
+
+        lblIdGita.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblIdGita.setText("ID Gita:");
+        pnlCentro.add(lblIdGita);
+
+        txtIdGita.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pnlCentro.add(txtIdGita);
 
         getContentPane().add(pnlCentro, java.awt.BorderLayout.CENTER);
 
@@ -111,6 +120,7 @@ public class AggiuntaStudente extends javax.swing.JDialog {
         id = Integer.parseInt(txtId.getText());
         nome = txtNome.getText();
         cognome = txtCognome.getText();
+        idGita = Integer.parseInt(txtIdGita.getText());
         dispose();
     }//GEN-LAST:event_btnConfermaActionPerformed
 
@@ -126,11 +136,16 @@ public class AggiuntaStudente extends javax.swing.JDialog {
         return id;
     }
 
+    public int getIdGita() {
+        return idGita;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConferma;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCognome;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblIdGita;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTitolo;
     private javax.swing.JPanel pnlCentro;
@@ -138,6 +153,7 @@ public class AggiuntaStudente extends javax.swing.JDialog {
     private javax.swing.JPanel pnlTitolo;
     private javax.swing.JTextField txtCognome;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtIdGita;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
