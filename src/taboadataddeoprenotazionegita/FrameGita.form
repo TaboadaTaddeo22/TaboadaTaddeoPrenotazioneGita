@@ -85,9 +85,9 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Gite">
+                <TitledBorder title="Visualizza le gite qui">
                   <Font PropertyName="font" name="Segoe UI" size="24" style="1"/>
-                  <Color PropertyName="color" blue="0" green="0" red="99" type="rgb"/>
+                  <Color PropertyName="color" blue="0" green="0" red="0" type="rgb"/>
                 </TitledBorder>
               </Border>
             </Property>
@@ -162,12 +162,34 @@
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
               </AccessibilityProperties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbGiteActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="40" y="30" width="240" height="70"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnSalvaFile">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="cc" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="20" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Salva File"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvaFileActionPerformed"/>
+              </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="40" y="430" width="230" height="70"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -252,7 +274,7 @@
             <Component class="javax.swing.JButton" name="btnCaricaFile">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="ff" red="66" type="rgb"/>
+                  <Color blue="0" green="cc" red="ff" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="20" style="1"/>

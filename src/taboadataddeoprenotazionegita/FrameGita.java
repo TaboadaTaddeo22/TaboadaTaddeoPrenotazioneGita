@@ -4,7 +4,9 @@
  */
 package taboadataddeoprenotazionegita;
 
+import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.*;
 
 /**
@@ -12,12 +14,11 @@ import javax.swing.table.*;
  * @author taboada.taddeo
  */
 public class FrameGita extends javax.swing.JFrame {
-    
+    // Attributi
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameGita.class.getName());
     private RaccoltaGite rG;
     private GestioneFile gF;
     private DefaultTableModel model = new DefaultTableModel(new Object[]{"ID", "Luogo"}, 10);
-    
 
     /**
      * Creates new form FrameGita
@@ -29,22 +30,6 @@ public class FrameGita extends javax.swing.JFrame {
         impostaTabella();
     }
     
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("FlatLaf Cupertino Light".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrameGita().setVisible(true));
-    }
-    
     private void impostaTabella() {
         tblVisualizza.setSize(pnlSinistra.getWidth(), pnlSinistra.getHeight());
         tblVisualizza.setModel(model);
@@ -53,28 +38,38 @@ public class FrameGita extends javax.swing.JFrame {
     
     public void aggiornaGite() { 
         model.setRowCount(0);
+        pnlSinistra.setBorder(new TitledBorder(null, "Gite", 4, 0, new Font("Segoe UI", 1, 20), null));
 
         for (Gita g : rG.getListaGite()) {
             model.addRow(new Object[]{g.getId(), g.getLuogo()});
         }
     }
     
-    /*
     public void aggiornaStudenti() { 
         model.setRowCount(0);
+        pnlSinistra.setBorder(new TitledBorder(null, "Studenti", 4, 0, new Font("Segoe UI", 1, 20), null));
 
         for (Gita g : rG.getListaGite()) {
-            model.addRow(new Object[]{g.getId(), g.getLuogo()});
+            if (g.getLuogo().equals(cmbGite.getSelectedItem())) {
+                for (Studente s : g.getListaStudenti()) {
+                    model.addRow(new Object[]{s.getNome(), s.getCognome()});
+                }
+                return;
+            }
         }
     }
-    */
     
     public void rimuoviStudente() {
         int rS = tblVisualizza.getSelectedRow();
 
         if (rS != -1) {
             int id = (int) model.getValueAt(rS, 0);
-            //g.eliminaStudente(id);
+            for (Gita g : rG.getListaGite()) {
+                if (g.getLuogo().equals(cmbGite.getSelectedItem())) {
+                    g.eliminaStudente(id);
+                    return;
+                }
+            }
             model.removeRow(rS);
         }
     }
@@ -107,6 +102,7 @@ public class FrameGita extends javax.swing.JFrame {
         tblVisualizza = new javax.swing.JTable();
         pnlCentro = new javax.swing.JPanel();
         cmbGite = new javax.swing.JComboBox<>();
+        btnSalvaFile = new javax.swing.JButton();
         pnlDestra = new javax.swing.JPanel();
         btnRimuoviStudente = new javax.swing.JButton();
         btnAggiungiGita = new javax.swing.JButton();
@@ -133,7 +129,7 @@ public class FrameGita extends javax.swing.JFrame {
         pnlMain.setLayout(new java.awt.BorderLayout());
 
         pnlSinistra.setBackground(new java.awt.Color(204, 255, 255));
-        pnlSinistra.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gite", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 24), new java.awt.Color(153, 0, 0))); // NOI18N
+        pnlSinistra.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Visualizza le gite qui", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 24), new java.awt.Color(0, 0, 0))); // NOI18N
         pnlSinistra.setPreferredSize(new java.awt.Dimension(400, 500));
         pnlSinistra.setLayout(new java.awt.BorderLayout());
 
@@ -159,9 +155,25 @@ public class FrameGita extends javax.swing.JFrame {
         pnlCentro.setLayout(null);
 
         cmbGite.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        cmbGite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGiteActionPerformed(evt);
+            }
+        });
         pnlCentro.add(cmbGite);
         cmbGite.setBounds(40, 30, 240, 70);
         cmbGite.getAccessibleContext().setAccessibleDescription("");
+
+        btnSalvaFile.setBackground(new java.awt.Color(255, 204, 0));
+        btnSalvaFile.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnSalvaFile.setText("Salva File");
+        btnSalvaFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvaFileActionPerformed(evt);
+            }
+        });
+        pnlCentro.add(btnSalvaFile);
+        btnSalvaFile.setBounds(40, 430, 230, 70);
 
         pnlMain.add(pnlCentro, java.awt.BorderLayout.CENTER);
 
@@ -202,7 +214,7 @@ public class FrameGita extends javax.swing.JFrame {
         pnlDestra.add(btnRimuoviGita);
         btnRimuoviGita.setBounds(40, 130, 230, 70);
 
-        btnCaricaFile.setBackground(new java.awt.Color(102, 255, 102));
+        btnCaricaFile.setBackground(new java.awt.Color(255, 204, 0));
         btnCaricaFile.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnCaricaFile.setText("Carica File");
         btnCaricaFile.addActionListener(new java.awt.event.ActionListener() {
@@ -247,20 +259,21 @@ public class FrameGita extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAggiungiGitaActionPerformed
 
     private void btnCaricaFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaricaFileActionPerformed
-        SceltaFile sF = new SceltaFile(this, true);
-        sF.setLocationRelativeTo(null);
-        sF.setVisible(true);
-        
+        // Svuota la raccolta attuale
         rG.svuota();
-        //ArrayList<Studente> studentiFile = gF.caricaDaFile(sF.getFile());
-        
-        sF.setLocationRelativeTo(null);
-        sF.setVisible(true);
-        
-        for(Gita g: rG.getListaGite()) {
-            g.svuota();
+
+        // Carica gite e studenti dai file
+        ArrayList<Gita> giteCaricate = gF.caricaTutto();
+
+        // Aggiunge le gite caricate nella raccolta e aggiorna la combobox
+        cmbGite.removeAllItems();
+        for (Gita g : giteCaricate) {
+            rG.aggiungiGita(g);
+            cmbGite.addItem(g.getLuogo());
         }
-        //ArrayList<Studente> studentiFile = gF.caricaDaFile(sF.getFile());
+
+        // Aggiorna la tabella
+        aggiornaGite();
     }//GEN-LAST:event_btnCaricaFileActionPerformed
 
     private void btnRimuoviStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviStudenteActionPerformed
@@ -282,8 +295,15 @@ public class FrameGita extends javax.swing.JFrame {
         int idGita = aS.getIdGita();
         
         rG.cercaGita(idGita).aggiungiStudente(new Studente(id, nome, cognome));
-        //aggiornaGite();
     }//GEN-LAST:event_btnAggiungiStudenteActionPerformed
+
+    private void cmbGiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGiteActionPerformed
+        aggiornaStudenti();
+    }//GEN-LAST:event_cmbGiteActionPerformed
+
+    private void btnSalvaFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaFileActionPerformed
+        gF.salvaTutto(rG.getListaGite());
+    }//GEN-LAST:event_btnSalvaFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAggiungiGita;
@@ -291,6 +311,7 @@ public class FrameGita extends javax.swing.JFrame {
     private javax.swing.JButton btnCaricaFile;
     private javax.swing.JButton btnRimuoviGita;
     private javax.swing.JButton btnRimuoviStudente;
+    private javax.swing.JButton btnSalvaFile;
     private javax.swing.JComboBox<String> cmbGite;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitolo;
