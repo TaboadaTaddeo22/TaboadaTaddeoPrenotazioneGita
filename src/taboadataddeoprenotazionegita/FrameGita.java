@@ -4,6 +4,7 @@
  */
 package taboadataddeoprenotazionegita;
 
+import java.util.ArrayList;
 import javax.swing.table.*;
 
 /**
@@ -85,6 +86,7 @@ public class FrameGita extends javax.swing.JFrame {
             int id = (int) model.getValueAt(rS, 0);
             rG.eliminaGita(id);
             model.removeRow(rS);
+            gF.eliminaGita(id);
         }
     }
 
@@ -109,6 +111,7 @@ public class FrameGita extends javax.swing.JFrame {
         btnRimuoviStudente = new javax.swing.JButton();
         btnAggiungiGita = new javax.swing.JButton();
         btnRimuoviGita = new javax.swing.JButton();
+        btnCaricaFile = new javax.swing.JButton();
         btnAggiungiStudente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -175,7 +178,7 @@ public class FrameGita extends javax.swing.JFrame {
             }
         });
         pnlDestra.add(btnRimuoviStudente);
-        btnRimuoviStudente.setBounds(40, 430, 230, 70);
+        btnRimuoviStudente.setBounds(40, 330, 230, 70);
 
         btnAggiungiGita.setBackground(new java.awt.Color(102, 255, 102));
         btnAggiungiGita.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -199,6 +202,17 @@ public class FrameGita extends javax.swing.JFrame {
         pnlDestra.add(btnRimuoviGita);
         btnRimuoviGita.setBounds(40, 130, 230, 70);
 
+        btnCaricaFile.setBackground(new java.awt.Color(102, 255, 102));
+        btnCaricaFile.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnCaricaFile.setText("Carica File");
+        btnCaricaFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCaricaFileActionPerformed(evt);
+            }
+        });
+        pnlDestra.add(btnCaricaFile);
+        btnCaricaFile.setBounds(40, 430, 230, 70);
+
         btnAggiungiStudente.setBackground(new java.awt.Color(102, 255, 102));
         btnAggiungiStudente.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnAggiungiStudente.setText("Aggiungi Studente");
@@ -208,7 +222,7 @@ public class FrameGita extends javax.swing.JFrame {
             }
         });
         pnlDestra.add(btnAggiungiStudente);
-        btnAggiungiStudente.setBounds(40, 330, 230, 70);
+        btnAggiungiStudente.setBounds(40, 230, 230, 70);
 
         pnlMain.add(pnlDestra, java.awt.BorderLayout.EAST);
 
@@ -232,6 +246,27 @@ public class FrameGita extends javax.swing.JFrame {
         aggiornaGite();
     }//GEN-LAST:event_btnAggiungiGitaActionPerformed
 
+    private void btnCaricaFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaricaFileActionPerformed
+        SceltaFile sF = new SceltaFile(this, true);
+        sF.setLocationRelativeTo(null);
+        sF.setVisible(true);
+        
+        rG.svuota();
+        //ArrayList<Studente> studentiFile = gF.caricaDaFile(sF.getFile());
+        
+        sF.setLocationRelativeTo(null);
+        sF.setVisible(true);
+        
+        for(Gita g: rG.getListaGite()) {
+            g.svuota();
+        }
+        //ArrayList<Studente> studentiFile = gF.caricaDaFile(sF.getFile());
+    }//GEN-LAST:event_btnCaricaFileActionPerformed
+
+    private void btnRimuoviStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviStudenteActionPerformed
+        rimuoviStudente();
+    }//GEN-LAST:event_btnRimuoviStudenteActionPerformed
+
     private void btnRimuoviGitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviGitaActionPerformed
         rimuoviGita();
     }//GEN-LAST:event_btnRimuoviGitaActionPerformed
@@ -250,13 +285,10 @@ public class FrameGita extends javax.swing.JFrame {
         //aggiornaGite();
     }//GEN-LAST:event_btnAggiungiStudenteActionPerformed
 
-    private void btnRimuoviStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviStudenteActionPerformed
-        rimuoviStudente();
-    }//GEN-LAST:event_btnRimuoviStudenteActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAggiungiGita;
     private javax.swing.JButton btnAggiungiStudente;
+    private javax.swing.JButton btnCaricaFile;
     private javax.swing.JButton btnRimuoviGita;
     private javax.swing.JButton btnRimuoviStudente;
     private javax.swing.JComboBox<String> cmbGite;

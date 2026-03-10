@@ -36,7 +36,7 @@ public class GestioneFile {
      * Salva (o sovrascrive) una gita nel file gite.dat.
      * La posizione è calcolata direttamente dall'id (accesso diretto).
      */
-    public static void salvaGita(Gita g) throws IOException {
+    public void salvaGita(Gita g) throws IOException {
         try (RandomAccessFile raf = new RandomAccessFile(FILE_GITE, "rw")) {
             long pos = (long) g.getId() * GITA_RECORD_SIZE;
             raf.seek(pos);
@@ -49,7 +49,7 @@ public class GestioneFile {
     /**
      * Marca come eliminata la gita con l'id indicato (soft delete).
      */
-    public static void eliminaGita(int id) throws IOException {
+    public void eliminaGita(int id) {
         File f = new File(FILE_GITE);
         if (!f.exists()) return;
         try (RandomAccessFile raf = new RandomAccessFile(FILE_GITE, "rw")) {
@@ -58,13 +58,15 @@ public class GestioneFile {
                 raf.seek(pos);
                 raf.writeByte(0);                           // record non valido
             }
+        } catch (Exception e) {
+            
         }
     }
 
     /**
      * Carica tutte le gite valide da gite.dat.
      */
-    public static RaccoltaGite caricaGite() throws IOException {
+    public RaccoltaGite caricaGite() throws IOException {
         RaccoltaGite raccolta = new RaccoltaGite();
         File f = new File(FILE_GITE);
         if (!f.exists()) return raccolta;
@@ -92,7 +94,7 @@ public class GestioneFile {
      * Salva l'iscrizione di uno studente a una gita.
      * Riutilizza il primo slot libero oppure appende in fondo.
      */
-    public static void salvaIscrizione(int gitaId, Studente s) throws IOException {
+    public void salvaIscrizione(int gitaId, Studente s) throws IOException {
         try (RandomAccessFile raf = new RandomAccessFile(FILE_STUDENTI, "rw")) {
             long numRecords = raf.length() / STU_RECORD_SIZE;
             long writePos   = numRecords * STU_RECORD_SIZE; // default: append
@@ -123,7 +125,7 @@ public class GestioneFile {
     /**
      * Elimina (soft delete) l'iscrizione di uno studente a una gita.
      */
-    public static void eliminaIscrizione(int gitaId, int studenteId) throws IOException {
+    public void eliminaIscrizione(int gitaId, int studenteId) throws IOException {
         File f = new File(FILE_STUDENTI);
         if (!f.exists()) return;
         try (RandomAccessFile raf = new RandomAccessFile(FILE_STUDENTI, "rw")) {
@@ -145,7 +147,7 @@ public class GestioneFile {
     /**
      * Carica nel oggetto Gita tutti gli studenti iscritti letti da file.
      */
-    public static void caricaStudentiGita(Gita g) throws IOException {
+    public void caricaStudentiGita(Gita g) throws IOException {
         File f = new File(FILE_STUDENTI);
         if (!f.exists()) return;
         try (RandomAccessFile raf = new RandomAccessFile(FILE_STUDENTI, "r")) {
@@ -169,7 +171,7 @@ public class GestioneFile {
     // =========================================================
 
     /** Scrive una stringa a lunghezza fissa (padding con spazi). */
-    private static void writeFixedString(RandomAccessFile raf,
+    private void writeFixedString(RandomAccessFile raf,
                                          String s, int length) throws IOException {
         int written = 0;
         for (int i = 0; i < s.length() && written < length; i++, written++) {
@@ -182,7 +184,7 @@ public class GestioneFile {
     }
 
     /** Legge una stringa a lunghezza fissa e rimuove il padding. */
-    private static String readFixedString(RandomAccessFile raf,
+    private String readFixedString(RandomAccessFile raf,
                                           int length) throws IOException {
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
