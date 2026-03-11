@@ -80,7 +80,6 @@ public class GestioneFile {
                 file.seek((long) i * DIM_RECORD_GITA);
                 int idLetto = file.readInt();
                 if (idLetto == g.getId()) {
-                    System.out.println("GestioneFile: gita con id " + g.getId() + " già presente, skip.");
                     return;
                 }
             }
@@ -115,9 +114,6 @@ public class GestioneFile {
                 file.writeInt(g.getId());
                 file.writeChars(aggiustaLunghezza(g.getLuogo(), LEN_LUOGO));
             }
-
-            System.out.println("GestioneFile: salvate " + listaGite.size() + " gite su " + FILE_GITE);
-
         } catch (FileNotFoundException ex) {
             System.out.println("GestioneFile: file " + FILE_GITE + " non trovato.");
         } catch (IOException e) {
@@ -137,8 +133,6 @@ public class GestioneFile {
         try (RandomAccessFile file = new RandomAccessFile(FILE_GITE, "r")) {
 
             int nRecord = (int) (file.length() / DIM_RECORD_GITA);
-            System.out.println("GestioneFile: trovati " + nRecord + " record in " + FILE_GITE);
-
             for (int i = 0; i < nRecord; i++) {
                 file.seek((long) i * DIM_RECORD_GITA);
                 int    id    = file.readInt();
@@ -165,7 +159,6 @@ public class GestioneFile {
         ArrayList<Gita> lista = caricaGite();
         lista.removeIf(g -> g.getId() == id);
         salvaGite(lista);
-        System.out.println("GestioneFile: gita con id " + id + " eliminata da " + FILE_GITE);
     }
 
     // -----------------------------------------------------------------------
@@ -189,7 +182,6 @@ public class GestioneFile {
                 file.seek((long) i * DIM_RECORD_STUDENTE);
                 int idLetto = file.readInt();
                 if (idLetto == s.getId()) {
-                    System.out.println("GestioneFile: studente con id " + s.getId() + " già presente, skip.");
                     return;
                 }
             }
@@ -231,9 +223,6 @@ public class GestioneFile {
                     posizione++;
                 }
             }
-
-            System.out.println("GestioneFile: salvati " + posizione + " studenti su " + FILE_STUDENTI);
-
         } catch (FileNotFoundException ex) {
             System.out.println("GestioneFile: file " + FILE_STUDENTI + " non trovato.");
         } catch (IOException e) {
@@ -251,8 +240,6 @@ public class GestioneFile {
         try (RandomAccessFile file = new RandomAccessFile(FILE_STUDENTI, "r")) {
 
             int nRecord = (int) (file.length() / DIM_RECORD_STUDENTE);
-            System.out.println("GestioneFile: trovati " + nRecord + " record in " + FILE_STUDENTI);
-
             for (int i = 0; i < nRecord; i++) {
                 file.seek((long) i * DIM_RECORD_STUDENTE);
 
@@ -329,9 +316,6 @@ public class GestioneFile {
                 file.writeChars(aggiustaLunghezza(nomi.get(i)[1], LEN_COGNOME));
                 file.writeInt(idGite.get(i));
             }
-
-            System.out.println("GestioneFile: studente con id " + idStudente + " eliminato da " + FILE_STUDENTI);
-
         } catch (IOException e) {
             System.out.println("GestioneFile: problema scrittura su " + FILE_STUDENTI);
         }
