@@ -40,6 +40,14 @@ public class SceltaFile extends javax.swing.JDialog {
             }
         });
     }
+    public void cambiaTesto(){
+        if("Scegli il File delle Gite da aprire:".equals(lblTitolo.getText())){
+            lblTitolo.setText("Scegli il File degli Studenti da aprire:");
+        }
+        if("Scegli il File degli Studenti da aprire:".equals(lblTitolo.getText())){
+            lblTitolo.setText("Scegli il File delle Gite da aprire:");
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,7 +76,7 @@ public class SceltaFile extends javax.swing.JDialog {
 
         lblTitolo.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTitolo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitolo.setText("Scegli il File di Testo da aprire:");
+        lblTitolo.setText("Scegli il File delle Gite da aprire:");
         pnlTitolo.add(lblTitolo, java.awt.BorderLayout.CENTER);
 
         lblAttenzione.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
