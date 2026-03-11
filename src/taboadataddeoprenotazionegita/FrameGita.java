@@ -81,7 +81,6 @@ public class FrameGita extends javax.swing.JFrame {
             int id = (int) model.getValueAt(rS, 0);
             rG.eliminaGita(id);
             model.removeRow(rS);
-            gF.eliminaGita(id);
         }
     }
 

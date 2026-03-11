@@ -7,7 +7,7 @@ package taboadataddeoprenotazionegita;
 import java.util.*;
 
 /**
- *
+ * Classe Studente
  * @author taboada.taddeo
  */
 public class Studente {
