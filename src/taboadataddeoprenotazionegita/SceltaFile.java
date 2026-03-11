@@ -31,20 +31,20 @@ public class SceltaFile extends javax.swing.JDialog {
             if (JFileChooser.APPROVE_SELECTION.equals(e.getActionCommand())) {
                 File fileScelto = jfcSceltaTesto.getSelectedFile();
 
-                    if (fileScelto.getName().endsWith(".txt")) {
+                    if (fileScelto.getName().endsWith(".dat")) {
                         file = fileScelto.getAbsolutePath();
                         dispose();
                     } else {
-                        lblErrore.setText("Errore: il file selezionato non è un file di testo (.txt)");
+                        lblErrore.setText("Errore: il file selezionato non è un file di testo (.dat)");
                     }
             }
         });
     }
     public void cambiaTesto(){
-        if("Scegli il File delle Gite da aprire:".equals(lblTitolo.getText())){
+        if(lblTitolo.getText().equals("Scegli il File delle Gite da aprire:")){
             lblTitolo.setText("Scegli il File degli Studenti da aprire:");
         }
-        if("Scegli il File degli Studenti da aprire:".equals(lblTitolo.getText())){
+        else{
             lblTitolo.setText("Scegli il File delle Gite da aprire:");
         }
     }

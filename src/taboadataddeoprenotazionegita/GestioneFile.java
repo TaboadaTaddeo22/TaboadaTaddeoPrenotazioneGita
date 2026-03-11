@@ -12,8 +12,8 @@ public class GestioneFile {
     private static final int DIM_RECORD_GITA     = (LEN_LUOGO * 2) + 4;
     private static final int DIM_RECORD_STUDENTE = 4 + (LEN_NOME * 2) + (LEN_COGNOME * 2) + 4;
 
-    private static final String FILE_GITE      = "gite.dat";
-    private static final String FILE_STUDENTI  = "studenti.dat";
+    private String FILE_GITE      = "gite.dat";
+    private String FILE_STUDENTI  = "studenti.dat";
 
     // -----------------------------------------------------------------------
     // Metodi di utilità (identici ad aggiustaLunghezzaStringa di FrameAccessoDiretto)
@@ -346,4 +346,21 @@ public class GestioneFile {
         salvaGite(listaGite);
         salvaStudenti(listaGite);
     }
+
+    public String getFILE_GITE() {
+        return FILE_GITE;
+    }
+
+    public void setFILE_GITE(String FILE_GITE) {
+        this.FILE_GITE = FILE_GITE;
+    }
+
+    public String getFILE_STUDENTI() {
+        return FILE_STUDENTI;
+    }
+
+    public void setFILE_STUDENTI(String FILE_STUDENTI) {
+        this.FILE_STUDENTI = FILE_STUDENTI;
+    }
+    
 }

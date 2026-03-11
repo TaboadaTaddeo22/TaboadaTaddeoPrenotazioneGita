@@ -271,8 +271,18 @@ public class FrameGita extends javax.swing.JFrame {
     private void btnCaricaFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaricaFileActionPerformed
         // Svuota la raccolta attuale
         rG.svuota();
-
+        SceltaFile sF = new SceltaFile(this,true);
+        sF.setLocationRelativeTo(null);
+        sF.setVisible(true);
         // Carica gite e studenti dai file
+        gF.setFILE_GITE(sF.getFile());
+        
+        SceltaFile sF1 = new SceltaFile(this,true);
+        sF1.cambiaTesto();
+        sF1.setLocationRelativeTo(null);
+        sF1.setVisible(true);
+        
+        gF.setFILE_STUDENTI(sF1.getFile());
         ArrayList<Gita> giteCaricate = gF.caricaTutto();
 
         // Aggiunge le gite caricate nella raccolta e aggiorna la combobox
