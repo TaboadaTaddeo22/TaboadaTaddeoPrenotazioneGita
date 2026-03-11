@@ -64,37 +64,6 @@ public class GestioneFile {
     // ==================  GITE.DAT  =========================================
     // -----------------------------------------------------------------------
 
-    /**
-     * Salva UNA gita in fondo a gite.dat.
-     * Se la gita con lo stesso id esiste già nel file, non viene duplicata.
-     *
-     * @param g la gita da salvare
-     */
-    public void salvaGita(Gita g) {
-        try (RandomAccessFile file = new RandomAccessFile(FILE_GITE, "rw")) {
-
-            int nRecord = (int) (file.length() / DIM_RECORD_GITA);
-
-            // Controlla se la gita è già presente (evita duplicati)
-            for (int i = 0; i < nRecord; i++) {
-                file.seek((long) i * DIM_RECORD_GITA);
-                int idLetto = file.readInt();
-                if (idLetto == g.getId()) {
-                    return;
-                }
-            }
-
-            // Aggiunge il record in fondo (come in FrameAccessoDiretto)
-            file.seek((long) nRecord * DIM_RECORD_GITA);
-            file.writeInt(g.getId());
-            file.writeChars(aggiustaLunghezza(g.getLuogo(), LEN_LUOGO));
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("GestioneFile: file " + FILE_GITE + " non trovato.");
-        } catch (IOException e) {
-            System.out.println("GestioneFile: problema lettura/scrittura su " + FILE_GITE);
-        }
-    }
 
     /**
      * Sovrascrive TUTTE le gite presenti in gite.dat con quelle della lista.
@@ -149,56 +118,12 @@ public class GestioneFile {
         return lista;
     }
 
-    /**
-     * Elimina una gita dal file gite.dat cercandola per id.
-     * Ricrea il file senza il record corrispondente.
-     *
-     * @param id l'id della gita da eliminare
-     */
-    public void eliminaGita(int id) {
-        ArrayList<Gita> lista = caricaGite();
-        lista.removeIf(g -> g.getId() == id);
-        salvaGite(lista);
-    }
+
 
     // -----------------------------------------------------------------------
     // ==================  STUDENTI.DAT  =====================================
     // -----------------------------------------------------------------------
 
-    /**
-     * Salva UNO studente in fondo a studenti.dat, associandolo alla gita indicata.
-     * Se lo studente con lo stesso id esiste già, non viene duplicato.
-     *
-     * @param s      lo studente da salvare
-     * @param idGita l'id della gita a cui appartiene lo studente
-     */
-    public void salvaStudente(Studente s, int idGita) {
-        try (RandomAccessFile file = new RandomAccessFile(FILE_STUDENTI, "rw")) {
-
-            int nRecord = (int) (file.length() / DIM_RECORD_STUDENTE);
-
-            // Controlla se lo studente è già presente (evita duplicati)
-            for (int i = 0; i < nRecord; i++) {
-                file.seek((long) i * DIM_RECORD_STUDENTE);
-                int idLetto = file.readInt();
-                if (idLetto == s.getId()) {
-                    return;
-                }
-            }
-
-            // Aggiunge il record in fondo
-            file.seek((long) nRecord * DIM_RECORD_STUDENTE);
-            file.writeInt(s.getId());
-            file.writeChars(aggiustaLunghezza(s.getNome(),    LEN_NOME));
-            file.writeChars(aggiustaLunghezza(s.getCognome(), LEN_COGNOME));
-            file.writeInt(idGita);
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("GestioneFile: file " + FILE_STUDENTI + " non trovato.");
-        } catch (IOException e) {
-            System.out.println("GestioneFile: problema lettura/scrittura su " + FILE_STUDENTI);
-        }
-    }
 
     /**
      * Sovrascrive TUTTI gli studenti in studenti.dat con quelli di tutte le gite.
@@ -263,61 +188,6 @@ public class GestioneFile {
             System.out.println("GestioneFile: file " + FILE_STUDENTI + " non trovato.");
         } catch (IOException e) {
             System.out.println("GestioneFile: problema lettura su " + FILE_STUDENTI);
-        }
-    }
-
-    /**
-     * Elimina uno studente da studenti.dat cercandolo per id.
-     * Ricrea il file senza il record corrispondente.
-     *
-     * @param idStudente l'id dello studente da eliminare
-     */
-    public void eliminaStudente(int idStudente) {
-        // Struttura di appoggio per riscrivere il file
-        ArrayList<int[]>    ids     = new ArrayList<>();
-        ArrayList<String[]> nomi    = new ArrayList<>();
-        ArrayList<Integer>  idGite  = new ArrayList<>();
-
-        try (RandomAccessFile file = new RandomAccessFile(FILE_STUDENTI, "r")) {
-
-            int nRecord = (int) (file.length() / DIM_RECORD_STUDENTE);
-
-            for (int i = 0; i < nRecord; i++) {
-                file.seek((long) i * DIM_RECORD_STUDENTE);
-                int    id      = file.readInt();
-                String nome    = leggiStringa(file, LEN_NOME);
-                String cognome = leggiStringa(file, LEN_COGNOME);
-                int    idGita  = file.readInt();
-
-                if (id != idStudente) {
-                    ids.add(new int[]{id});
-                    nomi.add(new String[]{nome, cognome});
-                    idGite.add(idGita);
-                }
-            }
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("GestioneFile: file " + FILE_STUDENTI + " non trovato.");
-            return;
-        } catch (IOException e) {
-            System.out.println("GestioneFile: problema lettura su " + FILE_STUDENTI);
-            return;
-        }
-
-        // Riscrive il file senza lo studente eliminato
-        try (RandomAccessFile file = new RandomAccessFile(FILE_STUDENTI, "rw")) {
-
-            file.setLength(0);
-
-            for (int i = 0; i < ids.size(); i++) {
-                file.seek((long) i * DIM_RECORD_STUDENTE);
-                file.writeInt(ids.get(i)[0]);
-                file.writeChars(aggiustaLunghezza(nomi.get(i)[0], LEN_NOME));
-                file.writeChars(aggiustaLunghezza(nomi.get(i)[1], LEN_COGNOME));
-                file.writeInt(idGite.get(i));
-            }
-        } catch (IOException e) {
-            System.out.println("GestioneFile: problema scrittura su " + FILE_STUDENTI);
         }
     }
 

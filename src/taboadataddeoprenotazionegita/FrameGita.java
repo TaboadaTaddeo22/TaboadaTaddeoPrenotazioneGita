@@ -53,7 +53,7 @@ public class FrameGita extends javax.swing.JFrame {
         for (Gita g : rG.getListaGite()) {
             if (g.getLuogo().equals(cmbGite.getSelectedItem())) {
                 for (Studente s : g.getListaStudenti()) {
-                    model.addRow(new Object[]{s.getNome(), s.getCognome()});
+                    model.addRow(new Object[]{s.getId(), s.getNome()});
                 }
                 return;
             }
