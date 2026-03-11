@@ -28,6 +28,7 @@ public class FrameGita extends javax.swing.JFrame {
         rG = new RaccoltaGite();
         gF = new GestioneFile();
         impostaTabella();
+        cmbGite.addItem("Visualizza Gite");
     }
     
     private void impostaTabella() {
@@ -128,7 +129,7 @@ public class FrameGita extends javax.swing.JFrame {
         pnlMain.setLayout(new java.awt.BorderLayout());
 
         pnlSinistra.setBackground(new java.awt.Color(204, 255, 255));
-        pnlSinistra.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Visualizza le gite qui", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        pnlSinistra.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Visualizza le gite qui", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 24))); // NOI18N
         pnlSinistra.setPreferredSize(new java.awt.Dimension(400, 500));
         pnlSinistra.setLayout(new java.awt.BorderLayout());
 
@@ -154,9 +155,19 @@ public class FrameGita extends javax.swing.JFrame {
         pnlCentro.setLayout(null);
 
         cmbGite.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        cmbGite.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbGiteMouseClicked(evt);
+            }
+        });
         cmbGite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGiteActionPerformed(evt);
+            }
+        });
+        cmbGite.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cmbGitePropertyChange(evt);
             }
         });
         pnlCentro.add(cmbGite);
@@ -266,6 +277,7 @@ public class FrameGita extends javax.swing.JFrame {
 
         // Aggiunge le gite caricate nella raccolta e aggiorna la combobox
         cmbGite.removeAllItems();
+        
         for (Gita g : giteCaricate) {
             rG.aggiungiGita(g);
             cmbGite.addItem(g.getLuogo());
@@ -273,6 +285,9 @@ public class FrameGita extends javax.swing.JFrame {
 
         // Aggiorna la tabella
         aggiornaGite();
+        
+        cmbGite.addItem("Visualizza Gite");
+        cmbGite.setSelectedItem("Visualizza Gite");
     }//GEN-LAST:event_btnCaricaFileActionPerformed
 
     private void btnRimuoviStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviStudenteActionPerformed
@@ -297,12 +312,24 @@ public class FrameGita extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAggiungiStudenteActionPerformed
 
     private void cmbGiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGiteActionPerformed
-        aggiornaStudenti();
+        
     }//GEN-LAST:event_cmbGiteActionPerformed
 
     private void btnSalvaFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaFileActionPerformed
         gF.salvaTutto(rG.getListaGite());
     }//GEN-LAST:event_btnSalvaFileActionPerformed
+
+    private void cmbGiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbGiteMouseClicked
+        if (cmbGite.getSelectedItem().equals("Visualizza Gite")) {
+            aggiornaGite();
+        } else {
+            aggiornaStudenti(); 
+        }
+    }//GEN-LAST:event_cmbGiteMouseClicked
+
+    private void cmbGitePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbGitePropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGitePropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAggiungiGita;
