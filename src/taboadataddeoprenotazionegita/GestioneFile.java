@@ -15,10 +15,6 @@ public class GestioneFile {
     private String FILE_GITE      = "gite.dat";
     private String FILE_STUDENTI  = "studenti.dat";
 
-    // -----------------------------------------------------------------------
-    // Metodi di utilità (identici ad aggiustaLunghezzaStringa di FrameAccessoDiretto)
-    // -----------------------------------------------------------------------
-
     /**
      * Adatta la lunghezza di una stringa alla dimensione fissa richiesta:
      * - se troppo corta, la riempie con '*'
@@ -59,11 +55,6 @@ public class GestioneFile {
         // Rimuove il padding '*' usato per riempire la lunghezza fissa
         return sb.toString().replace("*", "").trim();
     }
-
-    // -----------------------------------------------------------------------
-    // ==================  GITE.DAT  =========================================
-    // -----------------------------------------------------------------------
-
 
     /**
      * Sovrascrive TUTTE le gite presenti in gite.dat con quelle della lista.
@@ -117,13 +108,6 @@ public class GestioneFile {
 
         return lista;
     }
-
-
-
-    // -----------------------------------------------------------------------
-    // ==================  STUDENTI.DAT  =====================================
-    // -----------------------------------------------------------------------
-
 
     /**
      * Sovrascrive TUTTI gli studenti in studenti.dat con quelli di tutte le gite.
@@ -190,10 +174,6 @@ public class GestioneFile {
             System.out.println("GestioneFile: problema lettura su " + FILE_STUDENTI);
         }
     }
-
-    // -----------------------------------------------------------------------
-    // ==================  CARICAMENTO COMPLETO  =============================
-    // -----------------------------------------------------------------------
 
     /**
      * Metodo di comodo: carica gite e studenti in un'unica chiamata.

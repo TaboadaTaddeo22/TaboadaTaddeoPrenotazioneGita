@@ -39,6 +39,7 @@ public class FrameGita extends javax.swing.JFrame {
     
     public void aggiornaGite() { 
         model.setRowCount(0);
+        model.setColumnIdentifiers(new Object[]{"ID", "Luogo"});
         pnlSinistra.setBorder(new TitledBorder(null, "Gite", 4, 0, new Font("Segoe UI", 1, 20), null));
 
         for (Gita g : rG.getListaGite()) {
@@ -48,7 +49,8 @@ public class FrameGita extends javax.swing.JFrame {
     
     public void aggiornaStudenti() { 
         model.setRowCount(0);
-        pnlSinistra.setBorder(new TitledBorder(null, "Studenti", 4, 0, new Font("Segoe UI", 1, 20), null));
+        model.setColumnIdentifiers(new Object[]{"ID", "Nome"});
+        pnlSinistra.setBorder(new TitledBorder(null, "Studenti a " + cmbGite.getSelectedItem(), 4, 0, new Font("Segoe UI", 1, 20), null));
 
         for (Gita g : rG.getListaGite()) {
             if (g.getLuogo().equals(cmbGite.getSelectedItem())) {
@@ -80,6 +82,7 @@ public class FrameGita extends javax.swing.JFrame {
 
         if (rS != -1) {
             int id = (int) model.getValueAt(rS, 0);
+            cmbGite.removeItemAt(rS);
             rG.eliminaGita(id);
             model.removeRow(rS);
         }
