@@ -38,6 +38,9 @@ public class FrameGita extends javax.swing.JFrame {
     }
     
     public void aggiornaGite() { 
+        btnRimuoviStudente.setEnabled(false);
+        btnRimuoviGita.setEnabled(true);
+        
         model.setRowCount(0);
         model.setColumnIdentifiers(new Object[]{"ID", "Luogo"});
         pnlSinistra.setBorder(new TitledBorder(null, "Gite", 4, 0, new Font("Segoe UI", 1, 20), null));
@@ -48,6 +51,9 @@ public class FrameGita extends javax.swing.JFrame {
     }
     
     public void aggiornaStudenti() { 
+        btnRimuoviStudente.setEnabled(true);
+        btnRimuoviGita.setEnabled(false);
+        
         model.setRowCount(0);
         model.setColumnIdentifiers(new Object[]{"ID", "Nome"});
         pnlSinistra.setBorder(new TitledBorder(null, "Studenti a " + cmbGite.getSelectedItem(), 4, 0, new Font("Segoe UI", 1, 20), null));
@@ -70,10 +76,10 @@ public class FrameGita extends javax.swing.JFrame {
             for (Gita g : rG.getListaGite()) {
                 if (g.getLuogo().equals(cmbGite.getSelectedItem())) {
                     g.eliminaStudente(id);
+                    model.removeRow(rS);
                     return;
                 }
             }
-            model.removeRow(rS);
         }
     }
     
